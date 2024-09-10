@@ -17,7 +17,7 @@ public class OrganizationService {
         this.repository = repository;
     }
 
-    public Organization findById(String organizationId) {
+    public Organization findById(UUID organizationId) {
         Optional<Organization> opt = repository.findById(organizationId);
         return (opt.isPresent()) ? opt.get() : null;
     }
