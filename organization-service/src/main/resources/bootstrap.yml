@@ -5,4 +5,13 @@ spring:
     active: dev
   cloud:
     config:
-      uri: http://configserver:8071
+      uri: http://127.0.0.1:8071
+#Enable all Spring Boot Actuator endpoints.
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+server:
+  port: 8073
