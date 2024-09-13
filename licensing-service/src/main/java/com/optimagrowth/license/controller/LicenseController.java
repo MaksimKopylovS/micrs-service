@@ -1,12 +1,15 @@
 package com.optimagrowth.license.controller;
 
+import com.optimagrowth.license.client.OrganizationFeignClient;
 import com.optimagrowth.license.model.License;
+import com.optimagrowth.license.model.Organization;
 import com.optimagrowth.license.service.LicenseService;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Locale;
+import java.util.UUID;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -18,9 +21,11 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class LicenseController {
 
     private final LicenseService licenseService;
+    private final OrganizationFeignClient organizationClient;
 
-    public LicenseController(LicenseService licenseService) {
+    public LicenseController(LicenseService licenseService, OrganizationFeignClient organizationClient) {
         this.licenseService = licenseService;
+        this.organizationClient = organizationClient;
     }
 
     @GetMapping(value = "/{licenseId}")
@@ -63,6 +68,12 @@ public class LicenseController {
             @PathVariable("organizationId") String organizationID,
             @PathVariable("licenseId") String licenseId) {
         return ResponseEntity.ok(licenseService.deleteLicense(licenseId));
+    }
+
+    @GetMapping(value = "/org/{orgId}")
+    public ResponseEntity<Organization>getOrganization(@PathVariable("orgId") UUID orgId){
+        Organization org = organizationClient.getOrganization(orgId);
+        return ResponseEntity.ok(org);
     }
 
 }
