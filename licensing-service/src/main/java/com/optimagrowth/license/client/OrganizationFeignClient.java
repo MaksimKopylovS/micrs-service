@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.UUID;
 
-@FeignClient(value = "organization-service", url = "http://127.0.0.1:8073")
+@FeignClient(value = "licensing-service", url = "${spring.cloud.openfeign.client.config.licensing-service.url}")
 public interface OrganizationFeignClient {
 
     @RequestMapping(method = RequestMethod.GET, value = "/v1/organization/{organizationId}", consumes = "application/json")
