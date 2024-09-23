@@ -6,6 +6,7 @@ spring:
   cloud:
     config:
       uri: http://127.0.0.1:8071
+
 #Enable all Spring Boot Actuator endpoints.
 management:
   endpoints:
