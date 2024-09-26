@@ -1,4 +1,9 @@
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8068/realms/spmia-realm/protocol/openid-connect/certs
   application:
     name: organization-service
   profiles:
@@ -6,10 +11,12 @@ spring:
   cloud:
     config:
       uri: http://127.0.0.1:8071
-
 #Enable all Spring Boot Actuator endpoints.
 management:
   endpoints:
     web:
       exposure:
         include: "*"
+logging:
+  level:
+    org.springframework.security: TRACE

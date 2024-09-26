@@ -4,12 +4,14 @@ import com.optimagrowth.organization_service.model.Organization;
 import com.optimagrowth.organization_service.service.OrganizationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "v1/organization")
+@CrossOrigin(origins = "*")
 public class OrganizationController {
     private final OrganizationService service;
 
@@ -36,6 +38,17 @@ public class OrganizationController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteOrganization(@PathVariable("id") String id, @RequestBody Organization organization) {
         service.delete(organization);
+    }
+
+    @GetMapping(value = "/home")
+    @ResponseStatus(HttpStatus.OK)
+    public String home() {
+        return "Hello, Home";
+    }
+
+    @GetMapping(value = "/secured")
+    public String secured() {
+        return "Hello, secured";
     }
 
 }
